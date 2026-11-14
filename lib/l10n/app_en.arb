@@ -1,0 +1,165 @@
+{
+  "@@locale": "en",
+  "appTitle": "Emplak3",
+  "betaVersion": "Beta version",
+  "groupMembersTitle": "Group members:",
+  "copyrightNotice": "Project based on the Emplake program. All rights reserved to Walter Alexandre Carnielli.",
+  "languageLabel": "Language",
+  "playerName": "Player",
+  "settingsTitle": "Settings",
+  "close": "Close",
+  "appearance": "Appearance",
+  "systemTheme": "Device default",
+  "lightTheme": "Light",
+  "darkTheme": "Dark",
+  "textSection": "Text",
+  "textFont": "Text font",
+  "fontSystem": "System default",
+  "fontSansSerif": "Sans serif",
+  "fontSerif": "Serif",
+  "fontMonospace": "Monospace",
+  "textSize": "Text size",
+  "textExample": "Sample text",
+  "appColor": "App color",
+  "seedColorHint": "Choose a seed color to generate the theme palette.",
+  "preview": "Preview",
+  "changesImmediate": "Changes are applied immediately.",
+  "justNow": "Just now",
+  "historyLoadError": "Could not load history: {error}",
+  "@historyLoadError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "profileHelpText": "Here you can see all equations you have solved in your account.",
+  "leftSide": "left",
+  "rightSide": "right",
+  "selectEquationSide": "Select the {side} side of the equation",
+  "@selectEquationSide": {
+    "placeholders": {
+      "side": { "type": "String" }
+    }
+  },
+  "addOperator": "Add {operator}",
+  "@addOperator": {
+    "placeholders": {
+      "operator": { "type": "String" }
+    }
+  },
+  "powerOperator": "power",
+  "moduloOperator": "modulo",
+  "floorOperator": "floor",
+  "ceilingOperator": "ceiling",
+  "helloPlayer": "Hello, {name}!",
+  "@helloPlayer": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "tapToViewHistory": "Tap here to view your solution history.",
+  "yourScores": "Your scores",
+  "points": "points",
+  "chooseDifficulty": "Choose a difficulty",
+  "startWithDifficulty": "Start • {difficulty}",
+  "@startWithDifficulty": {
+    "placeholders": {
+      "difficulty": { "type": "String" }
+    }
+  },
+  "diffEasy": "Easy",
+  "diffIntermediate": "Intermediate",
+  "diffAdvanced": "Advanced",
+  "diffHard": "Hard",
+  "descEasy": "All operators available.",
+  "descIntermediate": "Includes powers, roots, and factorial.",
+  "descAdvanced": "A smaller set of operators.",
+  "descHard": "Basic operations only.",
+  "help": "Help",
+  "settings": "Settings",
+  "understood": "Got it",
+  "difficultyHelpText": "Choose a difficulty and tap Start to begin a new challenge. Tap your name at the top to view your profile and solution history.",
+  "backToDifficulties": "Back to difficulties",
+  "profileAndHistory": "Profile & History",
+  "tapToAdd": "Tap to add",
+  "tapToSelect": "Tap to select",
+  "verifyEquation": "Verify equation",
+  "undoLast": "Undo last item",
+  "skipPuzzle": "Skip challenge",
+  "howToPlay": "How to play",
+  "gameHelpText": "Tap one side of the equals sign to choose where to insert the next elements. Then, tap the four numbers and operators to build an expression on each side. Each number must be used exactly once.\n\nWhen finished, tap Verify. Available operators vary by difficulty. For absolute value, use | before and after the expression; for floor and ceiling, use ⌊…⌋ and ⌈…⌉.",
+  "useAllFourNumbers": "Use all four numbers before verifying the equation.",
+  "fillBothSides": "Fill in both sides of the equation.",
+  "equationMismatch": "The equality does not hold: {left} ≠ {right}.",
+  "@equationMismatch": {
+    "placeholders": {
+      "left": { "type": "String" },
+      "right": { "type": "String" }
+    }
+  },
+  "equationCorrect": "Correct! You found a valid equality.",
+  "outOfRange": "The expression produces a value outside the allowed range.",
+  "operatorNotAllowed": "The operator “{operator}” is not available on {difficulty} level.",
+  "@operatorNotAllowed": {
+    "placeholders": {
+      "operator": { "type": "String" },
+      "difficulty": { "type": "String" }
+    }
+  },
+  "useProvidedNumbersOnly": "Use only the numbers provided by the challenge.",
+  "useEachNumberOnce": "You must use each of the four numbers exactly once.",
+  "noExtraNumbers": "Use each provided number exactly once, without adding other numbers.",
+  "unrecognizedChar": "Unrecognized character: “{char}”.",
+  "@unrecognizedChar": {
+    "placeholders": {
+      "char": { "type": "String" }
+    }
+  },
+  "enterMathExpression": "Enter a mathematical expression.",
+  "negativeSqrt": "Cannot compute the real square root of a negative number.",
+  "invalidFactorial": "Factorial can only be applied to non-negative integers.",
+  "factorialTooLarge": "The factorial result is too large for this game.",
+  "divisionByZero": "Division by zero is not allowed.",
+  "integerDivisionOnly": "On {difficulty} level, every division must result in an integer.",
+  "@integerDivisionOnly": {
+    "placeholders": {
+      "difficulty": { "type": "String" }
+    }
+  },
+  "notFiniteResult": "The operation does not produce a finite real number.",
+  "unexpectedToken": "Unexpected token: “{token}”.",
+  "@unexpectedToken": {
+    "placeholders": {
+      "token": { "type": "String" }
+    }
+  },
+  "incompleteExpression": "The expression ended before being completed.",
+  "expectedNumberOrParen": "Expected a number or “(”, but found “{token}”.",
+  "@expectedNumberOrParen": {
+    "placeholders": {
+      "token": { "type": "String" }
+    }
+  },
+  "expectedToken": "Expected “{expected}”.",
+  "@expectedToken": {
+    "placeholders": {
+      "expected": { "type": "String" }
+    }
+  },
+  "signOut": "Sign out",
+  "solvedSolutions": "Solved Solutions",
+  "noSolutionsYet": "You haven't solved any challenges yet.",
+  "completePuzzlePrompt": "Complete an equation in the game to record it here!",
+  "numbersLabel": "Numbers: {numbers}",
+  "@numbersLabel": {
+    "placeholders": {
+      "numbers": { "type": "String" }
+    }
+  },
+  "solvedAtLabel": "Solved on {date}",
+  "@solvedAtLabel": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "saveSolutionError": "Could not save your score to the cloud. Check your connection."
+}

@@ -1,0 +1,165 @@
+{
+  "@@locale": "pt",
+  "appTitle": "Emplak3",
+  "betaVersion": "Versão beta",
+  "groupMembersTitle": "Integrantes do grupo:",
+  "copyrightNotice": "Projeto baseado no programa Emplake. Direitos reservados a Walter Alexandre Carnielli.",
+  "languageLabel": "Idioma",
+  "playerName": "Jogador",
+  "settingsTitle": "Configurações",
+  "close": "Fechar",
+  "appearance": "Aparência",
+  "systemTheme": "Padrão do dispositivo",
+  "lightTheme": "Claro",
+  "darkTheme": "Escuro",
+  "textSection": "Texto",
+  "textFont": "Fonte do texto",
+  "fontSystem": "Padrão",
+  "fontSansSerif": "Sem serifa",
+  "fontSerif": "Serifada",
+  "fontMonospace": "Monoespaçada",
+  "textSize": "Tamanho da fonte",
+  "textExample": "Exemplo de texto",
+  "appColor": "Cor do aplicativo",
+  "seedColorHint": "Escolha a cor semente para gerar a paleta do tema.",
+  "preview": "Pré-visualização",
+  "changesImmediate": "As mudanças são aplicadas imediatamente.",
+  "justNow": "Agora mesmo",
+  "historyLoadError": "Não foi possível carregar o histórico: {error}",
+  "@historyLoadError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "profileHelpText": "Aqui você acompanha todas as equações que já resolveu em sua conta.",
+  "leftSide": "esquerdo",
+  "rightSide": "direito",
+  "selectEquationSide": "Selecionar lado {side} da equação",
+  "@selectEquationSide": {
+    "placeholders": {
+      "side": { "type": "String" }
+    }
+  },
+  "addOperator": "Adicionar {operator}",
+  "@addOperator": {
+    "placeholders": {
+      "operator": { "type": "String" }
+    }
+  },
+  "powerOperator": "potência",
+  "moduloOperator": "módulo",
+  "floorOperator": "piso",
+  "ceilingOperator": "teto",
+  "helloPlayer": "Olá, {name}!",
+  "@helloPlayer": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "tapToViewHistory": "Toque aqui para ver seu histórico de soluções.",
+  "yourScores": "Suas pontuações",
+  "points": "pontos",
+  "chooseDifficulty": "Escolha uma dificuldade",
+  "startWithDifficulty": "Iniciar • {difficulty}",
+  "@startWithDifficulty": {
+    "placeholders": {
+      "difficulty": { "type": "String" }
+    }
+  },
+  "diffEasy": "Fácil",
+  "diffIntermediate": "Intermediário",
+  "diffAdvanced": "Avançado",
+  "diffHard": "Difícil",
+  "descEasy": "Todos os operadores disponíveis.",
+  "descIntermediate": "Inclui potências, raízes e fatorial.",
+  "descAdvanced": "Um conjunto menor de operadores.",
+  "descHard": "Somente operações básicas.",
+  "help": "Ajuda",
+  "settings": "Config.",
+  "understood": "Entendi",
+  "difficultyHelpText": "Escolha uma dificuldade e toque em Iniciar para começar um novo desafio. Toque no seu nome no topo para ver seu perfil e o histórico de soluções.",
+  "backToDifficulties": "Voltar para dificuldades",
+  "profileAndHistory": "Perfil e histórico",
+  "tapToAdd": "Toque para adicionar",
+  "tapToSelect": "Toque para selecionar",
+  "verifyEquation": "Verificar equação",
+  "undoLast": "Desfazer último elemento",
+  "skipPuzzle": "Pular desafio",
+  "howToPlay": "Como jogar",
+  "gameHelpText": "Toque em um dos lados da igualdade para escolher onde inserir os próximos elementos. Depois, toque nos quatro números e nos operadores para montar uma expressão em cada lado. Cada número deve ser usado uma única vez.\n\nQuando terminar, toque em Verificar. Os operadores disponíveis variam conforme a dificuldade. Para módulo, use | antes e depois da expressão; para piso e teto, use ⌊…⌋ e ⌈…⌉.",
+  "useAllFourNumbers": "Use os quatro números antes de verificar a equação.",
+  "fillBothSides": "Preencha os dois lados da equação.",
+  "equationMismatch": "A igualdade não confere: {left} ≠ {right}.",
+  "@equationMismatch": {
+    "placeholders": {
+      "left": { "type": "String" },
+      "right": { "type": "String" }
+    }
+  },
+  "equationCorrect": "Correto! Você encontrou uma igualdade válida.",
+  "outOfRange": "A expressão produz um valor fora do intervalo permitido.",
+  "operatorNotAllowed": "O operador “{operator}” não está disponível no nível {difficulty}.",
+  "@operatorNotAllowed": {
+    "placeholders": {
+      "operator": { "type": "String" },
+      "difficulty": { "type": "String" }
+    }
+  },
+  "useProvidedNumbersOnly": "Use apenas os números fornecidos pelo desafio.",
+  "useEachNumberOnce": "Você precisa usar cada um dos quatro números exatamente uma vez.",
+  "noExtraNumbers": "Use cada número fornecido exatamente uma vez, sem acrescentar outros números.",
+  "unrecognizedChar": "Caractere não reconhecido: “{char}”.",
+  "@unrecognizedChar": {
+    "placeholders": {
+      "char": { "type": "String" }
+    }
+  },
+  "enterMathExpression": "Digite uma expressão matemática.",
+  "negativeSqrt": "Não é possível calcular a raiz quadrada real de um número negativo.",
+  "invalidFactorial": "O fatorial só pode ser aplicado a inteiros não negativos.",
+  "factorialTooLarge": "O resultado do fatorial é grande demais para este jogo.",
+  "divisionByZero": "Não é permitido dividir por zero.",
+  "integerDivisionOnly": "No nível {difficulty}, toda divisão deve ter resultado inteiro.",
+  "@integerDivisionOnly": {
+    "placeholders": {
+      "difficulty": { "type": "String" }
+    }
+  },
+  "notFiniteResult": "A operação não produz um número real finito.",
+  "unexpectedToken": "Token inesperado: “{token}”.",
+  "@unexpectedToken": {
+    "placeholders": {
+      "token": { "type": "String" }
+    }
+  },
+  "incompleteExpression": "A expressão terminou antes de ser concluída.",
+  "expectedNumberOrParen": "Era esperado um número ou “(”, mas foi encontrado “{token}”.",
+  "@expectedNumberOrParen": {
+    "placeholders": {
+      "token": { "type": "String" }
+    }
+  },
+  "expectedToken": "Era esperado “{expected}”.",
+  "@expectedToken": {
+    "placeholders": {
+      "expected": { "type": "String" }
+    }
+  },
+  "signOut": "Sair da conta",
+  "solvedSolutions": "Soluções Resolvidas",
+  "noSolutionsYet": "Você ainda não resolveu nenhum desafio.",
+  "completePuzzlePrompt": "Complete uma equação no jogo para registrá-la aqui!",
+  "numbersLabel": "Números: {numbers}",
+  "@numbersLabel": {
+    "placeholders": {
+      "numbers": { "type": "String" }
+    }
+  },
+  "solvedAtLabel": "Resolvido em {date}",
+  "@solvedAtLabel": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "saveSolutionError": "Não foi possível salvar sua pontuação na nuvem. Verifique sua conexão."
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "288950992316",
+    "project_id": "emplake-felipe",
+    "storage_bucket": "emplake-felipe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288950992316:android:b58b7e8f82206742257fb9",
+        "android_client_info": {
+          "package_name": "com.example.emplake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288950992316-n2c3j6or86eq1ljcll06ochn4bi4rq4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUCCsyh6VpR4MEd_2YIvw7pYV_5936FKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288950992316-n2c3j6or86eq1ljcll06ochn4bi4rq4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
