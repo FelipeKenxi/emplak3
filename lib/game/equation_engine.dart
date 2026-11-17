@@ -478,11 +478,11 @@ class _ExpressionParser {
     }
     if (_matches('√')) {
       _advance();
-      return _UnaryNode('sqrt', _parseUnary());
+      return _UnaryNode('sqrt', _parsePostfix());
     }
     if (_matches('∛')) {
       _advance();
-      return _UnaryNode('cbrt', _parseUnary());
+      return _UnaryNode('cbrt', _parsePostfix());
     }
     if (_matches('|')) {
       _advance();

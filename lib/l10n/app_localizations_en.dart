@@ -208,7 +208,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gameHelpText =>
-      'Tap one side of the equals sign to choose where to insert the next elements. Then, tap the four numbers and operators to build an expression on each side. Each number must be used exactly once.\n\nWhen finished, tap Verify. Available operators vary by difficulty. For absolute value, use | before and after the expression; for floor and ceiling, use ⌊…⌋ and ⌈…⌉.';
+      'Tap one side of the equals sign to choose where to insert the next elements. Then, tap the four numbers and operators to build an expression on each side. Each number must be used exactly once.\n\nYou can also tap any placed token (or before the first one) to move the cursor and insert parentheses, modulo, or operators at any position in the equation.\n\nWhen finished, tap Verify. Available operators vary by difficulty. For absolute value, use | before and after the expression; for floor and ceiling, use ⌊…⌋ and ⌈…⌉.';
 
   @override
   String get useAllFourNumbers =>

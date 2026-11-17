@@ -467,7 +467,7 @@ abstract class AppLocalizations {
   /// No description provided for @gameHelpText.
   ///
   /// In pt, this message translates to:
-  /// **'Toque em um dos lados da igualdade para escolher onde inserir os próximos elementos. Depois, toque nos quatro números e nos operadores para montar uma expressão em cada lado. Cada número deve ser usado uma única vez.\n\nQuando terminar, toque em Verificar. Os operadores disponíveis variam conforme a dificuldade. Para módulo, use | antes e depois da expressão; para piso e teto, use ⌊…⌋ e ⌈…⌉.'**
+  /// **'Toque em um dos lados da igualdade para escolher onde inserir os próximos elementos. Depois, toque nos quatro números e nos operadores para montar uma expressão em cada lado. Cada número deve ser usado uma única vez.\n\nVocê também pode tocar em qualquer peça já inserida (ou antes da primeira) para mover o cursor e acrescentar parênteses, módulo ou operadores em qualquer posição da equação.\n\nQuando terminar, toque em Verificar. Os operadores disponíveis variam conforme a dificuldade. Para módulo, use | antes e depois da expressão; para piso e teto, use ⌊…⌋ e ⌈…⌉.'**
   String get gameHelpText;
 
   /// No description provided for @useAllFourNumbers.

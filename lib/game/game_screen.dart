@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../l10n/app_localizations.dart';
 import '../services/firestore_service.dart';
@@ -30,6 +32,9 @@ class _GameScreenState extends ConsumerState<GameScreen>
   final List<_PlacedToken> _leftTokens = [];
   final List<_PlacedToken> _rightTokens = [];
 
+  int _leftCursorIndex = 0;
+  int _rightCursorIndex = 0;
+
   late GamePuzzle _puzzle;
   Timer? _autoAdvanceTimer;
   GameDifficulty get _difficulty => widget.difficulty;
@@ -48,13 +53,11 @@ class _GameScreenState extends ConsumerState<GameScreen>
   void initState() {
     super.initState();
 
-    // Controlador para entrada escalonada (1 número por vez)
     _fadeInController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
 
-    // Controlador para saída simultânea (todos os 4 números juntos)
     _fadeOutController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 240),
@@ -85,11 +88,42 @@ class _GameScreenState extends ConsumerState<GameScreen>
     _puzzle = _deck.next();
     if (mounted) {
       _fadeInController.forward(from: 0.0);
+      await _checkFirstTimeHelp();
+    }
+  }
+
+  Future<void> _checkFirstTimeHelp() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'emplake_seen_game_help_$uid';
+    final hasSeenHelp = prefs.getBool(key) ?? false;
+
+    if (!hasSeenHelp && mounted) {
+      await prefs.setBool(key, true);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _showHelpDialog();
+        }
+      });
     }
   }
 
   List<_PlacedToken> get _activeTokens =>
       _leftSideSelected ? _leftTokens : _rightTokens;
+
+  int get _activeCursorIndex {
+    final raw = _leftSideSelected ? _leftCursorIndex : _rightCursorIndex;
+    return raw.clamp(0, _activeTokens.length);
+  }
+
+  void _setActiveCursorIndex(int index) {
+    final clamped = index.clamp(0, _activeTokens.length);
+    if (_leftSideSelected) {
+      _leftCursorIndex = clamped;
+    } else {
+      _rightCursorIndex = clamped;
+    }
+  }
 
   String _expressionFor(List<_PlacedToken> tokens) =>
       tokens.map((token) => token.text).join(' ');
@@ -106,7 +140,9 @@ class _GameScreenState extends ConsumerState<GameScreen>
     if (_isTransitioningPuzzle) return;
     _cancelAutoAdvance();
     setState(() {
-      _activeTokens.add(_PlacedToken(operator));
+      final insertIndex = _activeCursorIndex;
+      _activeTokens.insert(insertIndex, _PlacedToken(operator));
+      _setActiveCursorIndex(insertIndex + 1);
       _feedback = null;
     });
   }
@@ -115,9 +151,12 @@ class _GameScreenState extends ConsumerState<GameScreen>
     if (_isTransitioningPuzzle || _isNumberUsed(index)) return;
     _cancelAutoAdvance();
     setState(() {
-      _activeTokens.add(
+      final insertIndex = _activeCursorIndex;
+      _activeTokens.insert(
+        insertIndex,
         _PlacedToken(_puzzle.numbers[index].toString(), numberIndex: index),
       );
+      _setActiveCursorIndex(insertIndex + 1);
       _feedback = null;
     });
   }
@@ -126,7 +165,14 @@ class _GameScreenState extends ConsumerState<GameScreen>
     if (_isTransitioningPuzzle || _activeTokens.isEmpty) return;
     _cancelAutoAdvance();
     setState(() {
-      _activeTokens.removeLast();
+      final cursor = _activeCursorIndex;
+      if (cursor > 0) {
+        _activeTokens.removeAt(cursor - 1);
+        _setActiveCursorIndex(cursor - 1);
+      } else {
+        _activeTokens.removeAt(0);
+        _setActiveCursorIndex(0);
+      }
       _feedback = null;
     });
   }
@@ -135,12 +181,12 @@ class _GameScreenState extends ConsumerState<GameScreen>
     _cancelAutoAdvance();
     _leftTokens.clear();
     _rightTokens.clear();
+    _leftCursorIndex = 0;
+    _rightCursorIndex = 0;
     _feedback = null;
     _feedbackIsSuccess = false;
   }
 
-  /// Faz todos os números sumirem juntos (fade out) e depois traz os novos
-  /// números 1 por vez (fade in).
   Future<void> _nextPuzzleAnimated() async {
     if (_isTransitioningPuzzle) return;
     _cancelAutoAdvance();
@@ -149,12 +195,10 @@ class _GameScreenState extends ConsumerState<GameScreen>
       _isTransitioningPuzzle = true;
     });
 
-    // 1. Fade out simultâneo de todos os números atuais
     await _fadeOutController.reverse();
 
     if (!mounted) return;
 
-    // 2. Troca o desafio, limpa o quadro e prepara o fade-in do zero
     _fadeInController.value = 0.0;
     setState(() {
       _puzzle = _deck.next();
@@ -163,7 +207,6 @@ class _GameScreenState extends ConsumerState<GameScreen>
       _isTransitioningPuzzle = false;
     });
 
-    // Restaura a opacidade do grupo para 1.0 e dispara a entrada 1 por vez
     _fadeOutController.value = 1.0;
     await _fadeInController.forward(from: 0.0);
   }
@@ -219,7 +262,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
             );
           });
 
-      _autoAdvanceTimer = Timer(const Duration(milliseconds: 1100), () {
+      _autoAdvanceTimer = Timer(const Duration(milliseconds: 2800), () {
         if (mounted &&
             identical(_puzzle, verifiedPuzzle) &&
             _feedbackIsSuccess) {
@@ -465,7 +508,6 @@ class _GameScreenState extends ConsumerState<GameScreen>
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12),
-        // FadeTransition externo controla o fade-out simultâneo de todos os 4 números
         child: FadeTransition(
           opacity: _fadeOutController,
           child: Wrap(
@@ -476,7 +518,6 @@ class _GameScreenState extends ConsumerState<GameScreen>
               final used = _isNumberUsed(index);
               final fadeAnimation = _tileFadeInAnimations[index];
 
-              // FadeTransition individual controla a entrada 1 por vez
               return FadeTransition(
                 opacity: fadeAnimation,
                 child: SlideTransition(
@@ -621,12 +662,92 @@ class _GameScreenState extends ConsumerState<GameScreen>
     );
   }
 
+  Widget _buildCursorIndicator(ColorScheme colors) {
+    return Container(
+      width: 3,
+      height: 26,
+      margin: const EdgeInsets.symmetric(horizontal: 1),
+      decoration: BoxDecoration(
+        color: colors.primary,
+        borderRadius: BorderRadius.circular(2),
+      ),
+    );
+  }
+
   Widget _expressionSide(
     List<_PlacedToken> tokens, {
     required bool isSelected,
     required bool isLeft,
   }) {
     final colors = Theme.of(context).colorScheme;
+    final cursorIndex = (isLeft ? _leftCursorIndex : _rightCursorIndex)
+        .clamp(0, tokens.length);
+
+    void selectSideAndCursor(int newCursor) {
+      setState(() {
+        _leftSideSelected = isLeft;
+        if (isLeft) {
+          _leftCursorIndex = newCursor.clamp(0, _leftTokens.length);
+        } else {
+          _rightCursorIndex = newCursor.clamp(0, _rightTokens.length);
+        }
+      });
+    }
+
+    final children = <Widget>[];
+
+    // Área clicável no início da expressão (posição 0)
+    children.add(
+      GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => selectSideAndCursor(0),
+        child: SizedBox(
+          width: 12,
+          height: 30,
+          child: Center(
+            child: (isSelected && cursorIndex == 0)
+                ? _buildCursorIndicator(colors)
+                : const SizedBox.shrink(),
+          ),
+        ),
+      ),
+    );
+
+    for (var i = 0; i < tokens.length; i++) {
+      final token = tokens[i];
+      children.add(
+        GestureDetector(
+          onTap: () => selectSideAndCursor(i + 1),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 7,
+              vertical: 5,
+            ),
+            decoration: BoxDecoration(
+              color: token.numberIndex == null
+                  ? colors.surfaceContainerHighest
+                  : colors.secondaryContainer,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              _operatorLabel(token.text),
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: token.numberIndex == null
+                    ? FontWeight.w600
+                    : FontWeight.w800,
+                color: colors.onSurface,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      if (isSelected && cursorIndex == i + 1) {
+        children.add(_buildCursorIndicator(colors));
+      }
+    }
+
     return Semantics(
       button: true,
       label: _l10n.selectEquationSide(
@@ -637,7 +758,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
         child: InkWell(
           key: ValueKey(isLeft ? 'equation-side-left' : 'equation-side-right'),
           borderRadius: BorderRadius.circular(14),
-          onTap: () => setState(() => _leftSideSelected = isLeft),
+          onTap: () => selectSideAndCursor(tokens.length),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
             constraints: const BoxConstraints(minHeight: 92),
@@ -666,34 +787,9 @@ class _GameScreenState extends ConsumerState<GameScreen>
                 : Wrap(
                     alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 4,
+                    spacing: 3,
                     runSpacing: 7,
-                    children: tokens
-                        .map(
-                          (token) => Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 7,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: token.numberIndex == null
-                                  ? colors.surfaceContainerHighest
-                                  : colors.secondaryContainer,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              _operatorLabel(token.text),
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: token.numberIndex == null
-                                    ? FontWeight.w600
-                                    : FontWeight.w800,
-                                color: colors.onSurface,
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
+                    children: children,
                   ),
           ),
         ),
